@@ -1,0 +1,21 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Text</title>
+</head>
+<body>
+    <h1 id="message">Loading...</h1>
+
+    <script>
+        // Create an EventSource to listen to the /stream endpoint
+        const eventSource = new EventSource("/stream");
+
+        // Listen for messages from the server
+        eventSource.onmessage = function(event) {
+            // Update the displayed message with the new data from the server
+            document.getElementById("message").textContent = event.data;
+        };
+    </script>
+</body>
+</html>
