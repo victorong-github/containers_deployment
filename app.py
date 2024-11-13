@@ -1,5 +1,5 @@
 from flask import Flask, render_template, Response
-#import random
+import random
 import itertools
 import time
 import os
@@ -26,7 +26,7 @@ def index():
 def stream_messages():
     while True:
         # Get the next message in the cycle
-        text = next(text_cycle)
+        text = random.choice(text_cycle)
         # Send the message as a Server-Sent Event
         yield f"data: {text}\n\n"
         # Wait before sending the next message
