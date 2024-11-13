@@ -3,7 +3,6 @@ import random
 import itertools
 import time
 import os
-# Text Required
 
 texts = [
     "Logic will get you from A to B. Imagination will take you everywhere",
@@ -23,11 +22,11 @@ def index():
 
 def stream_messages():
     while True:
-        # Get the next message in the cycle
+        # Get random messages from the listed text above
         text = random.choice(texts)
-        # Send the message as a Server-Sent Event
+        # Send the message as an event
         yield f"data: {text}\n\n"
-        # Wait before sending the next message
+        # Wait 2 seconds before next message
         time.sleep(2)
 
 @app.route('/stream')

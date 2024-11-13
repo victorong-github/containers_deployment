@@ -9,10 +9,9 @@
     <h2>Repository can be found at https://github.com/victorong-github/workshop01</h2>
 
     <script>
-        // Create an EventSource to listen to the /stream endpoint
+        // eventSource to listen to the /stream endpoint
         const eventSource = new EventSource("/stream");
 
-        // Listen for messages from the server
         eventSource.onmessage = function(event) {
             // Update the displayed message with the new data from the server
             document.getElementById("message").textContent = event.data;
