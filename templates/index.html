@@ -5,9 +5,7 @@
     <title>Random Text</title>
 </head>
 <body>
-
     <h1 id="message">Loading...</h1>
-    <h1> Repository at https://github.com/victorong-github/workshop01 </h1>
 
     <script>
         // Create an EventSource to listen to the /stream endpoint
@@ -19,7 +17,5 @@
             document.getElementById("message").textContent = event.data;
         };
     </script>
-
-    
 </body>
 </html>

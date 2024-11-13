@@ -17,8 +17,6 @@ texts = [
 
 app = Flask(__name__)
 
-# Create an iterator to cycle through the messages
-text_cycle = itertools.cycle(texts)
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -26,7 +24,7 @@ def index():
 def stream_messages():
     while True:
         # Get the next message in the cycle
-        text = random.choice(text_cycle)
+        text = random.choice(texts)
         # Send the message as a Server-Sent Event
         yield f"data: {text}\n\n"
         # Wait before sending the next message
