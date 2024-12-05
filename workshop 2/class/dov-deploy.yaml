@@ -1,0 +1,58 @@
+---
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: dov-deploy 
+  namespace: myns
+  labels: 
+    app: dov
+spec: 
+  replicas: 3
+  selector: 
+    matchLabels: 
+      app: dov 
+      env: test
+  template: 
+    metadata: 
+      name: dov-pod
+      namespace: myns
+      labels: 
+        app: dov
+        env: test
+    spec:
+      containers:
+      - name: dov-container 
+        image: chukmunnlee/dov-bear@sha256:483038792aba29562a4d2044e790d7d3e7e6e6f684ce1fcafc3864949c000224
+        imagePullPolicy: IfNotPresent
+        #env:
+        #- name: INSTANCE_NAME
+        #  value: "my dov bear"
+        #- name: INSTANCE_HASH
+        #  valueFrom: 
+        #    fieldRef:
+        #      fieldPath: status.podIP
+        envFrom:
+        - configMapRef:
+            name: dov-cm
+        - secretRef:
+            name: dov-secret
+        ports:
+        - containerPort: 3000
+
+---
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: dov-svc 
+  namespace: myns 
+  labels: 
+    app: dov 
+spec:
+  type: ClusterIP
+  selector: 
+    app: dov
+    env: test
+  ports: 
+  - name: web
+    port: 8080 
+    targetPort: 3000

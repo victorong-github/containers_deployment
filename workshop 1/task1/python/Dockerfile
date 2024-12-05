@@ -22,5 +22,9 @@ COPY templates templates
 ENV APP_PORT=3000
 EXPOSE ${APP_PORT}
 
+# Add healthcheck
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+   CMD curl http://localhost:${APP_PORT}/health
+
 # Make the run.sh script executable
 CMD ["./run.sh"]
